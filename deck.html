@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="./style.css">
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+  <title>Deck.GL + @geolonia/embed</title>
+  <style>
+    body {
+      margin: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+  </style>
+</head>
+
+<body>
+
+  <script type="text/javascript" src="https://unpkg.com/deck.gl@latest/dist.min.js"></script>
+  <script type="text/javascript" src="./embed.js?geolonia-api-key=YOUR-API-KEY"></script>
+
+  <script>
+    const { DeckGL, GeoJsonLayer, ArcLayer } = deck;
+
+    const air_ports = 'https://assets.codepen.io/4210065/airports.geojson'
+
+    // 空港の GeoJSON を取得して Deck.GL のレイヤーを設置
+    fetch(air_ports).then(res => {
+      return res.json()
+    }).then(data => {
+      const layers = [
+        new GeoJsonLayer({
+          id: 'airports',
+          data: data,
+          filled: true,
+          pointRadiusMinPixels: 2,
+          pointRadiusScale: 1000,
+          getRadius: () => 5,
+          getFillColor: [255, 255, 100, 90],
+          pickable: true,
+          autoHighlight: true,
+        }),
+      ]
+
+      for (let i = 0; i < data.features.length; i++) {
+        const airport = data.features[i]
+        if ('cf04_00030' !== airport.properties.C28_000) {
+          continue // 羽田以外は除外
+        }
+        const arc = new ArcLayer({
+          id: `arcs-${i}`,
+          data: air_ports,
+          greatCircle: true,
+          wrapLongitude: true,
+          dataTransform: d => {
+            return d.features
+          },
+          getSourcePosition: () => airport.geometry.coordinates,
+          getTargetPosition: f => f.geometry.coordinates,
+          getSourceColor: [200, 0, 80],
+          getTargetColor: [150, 200, 255],
+          getWidth: 1,
+        })
+
+        layers.push(arc)
+      }
+
+      new DeckGL({
+        mapStyle: 'geolonia/midnight',
+        initialViewState: {
+          latitude: 37.092,
+          longitude: 138.219,
+          zoom: 6,
+          bearing: 0,
+          pitch: 60,
+        },
+        controller: true,
+        layers: layers
+      });
+    })
+
+    // コンテキストメニューを無効化
+    document.body.addEventListener('contextmenu', e => {
+      e.preventDefault();
+    });
+  </script>
+
+</body>
+</html>

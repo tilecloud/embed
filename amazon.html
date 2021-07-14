@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="./style.css">
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+  <title>@geolonia/embed</title>
+</head>
+
+<body>
+  <h1>@geolonia/embed | Amazon Location Service</h1>
+
+  Examples for Embed API for Geolonia.
+
+  <div class="example">
+    <h2>Load Amazon Location Service</h2>
+    <div
+      style="height: 300px"
+      id="map"
+      data-style="./amzn-loc-style.json"
+    ></div>
+    <pre>
+var provider = new window.geolonia.AmazonLocationServiceMapProvider({
+  cognitoIdentityPoolId: 'ap-northeast-1:d995db2c-8646-4ed2-8122-45dbd2c80019',
+  mapName: 'explore.map',
+})
+provider.initMap({ container: '#map' })
+    </pre>
+  </div>
+
+  <a class="forkme" href="https://github.com/geolonia/embed"><img width="149" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_right_darkblue_121621.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
+  <script>
+    var examples = document.querySelectorAll('.example');
+    for (var i = 0; i < examples.length; i++) {
+      var example = examples[i];
+      var html = example.querySelector('.geolonia, #map').outerHTML;
+      var pre = document.createElement('pre');
+      pre.innerText = html.replace(/(<div.+?)(>)/g, "$1\n$2").replace(/ ([^ ]+=[^ ]+)/g, "\n  $1");
+      example.insertBefore(pre, example.querySelector('.geolonia'));
+    }
+  </script>
+  <script src="./embed.js?geolonia-api-key=YOUR-API-KEY"></script>
+  <script>
+        var provider = new window.geolonia.AmazonLocationServiceMapProvider({
+          cognitoIdentityPoolId: 'ap-northeast-1:d995db2c-8646-4ed2-8122-45dbd2c80019',
+          mapName: 'explore.map',
+        })
+        provider.initMap({ container: '#map' })
+  </script>
+</body>
+
+</html>

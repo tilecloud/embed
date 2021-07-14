@@ -1,0 +1,409 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="./style.css">
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+  <title>@geolonia/embed</title>
+</head>
+
+<body>
+  <h1>@geolonia/embed</h1>
+
+  Examples for Embed API for Geolonia.
+
+  <div class="example">
+    <h2>Basic map</h2>
+    <div
+      class="geolonia"
+      data-lat="35.681236"
+      data-lng="139.767125"
+      data-zoom="16"
+      data-geolonia-fork-me-disabled="on"
+    ></div>
+  </div>
+
+  <div class="example">
+    <h2>Custom color of marker</h2>
+    <div
+      class="geolonia"
+      data-lat="35.681236"
+      data-lng="139.767125"
+      data-zoom="16"
+      data-marker-color="#555555"
+    >Hello</div>
+  </div>
+
+  <div class="example">
+    <h2>Zero configuration</h2>
+    <div
+      class="geolonia"
+    ></div>
+  </div>
+
+  <div class="example">
+    <h2>All of controls</h2>
+    <div
+      class="geolonia"
+      data-lat="34.704395"
+      data-lng="135.494771"
+      data-zoom="14"
+      data-navigation-control="on"
+      data-geolocate-control="on"
+      data-fullscreen-control="on"
+      data-scale-control="on"
+  >グランフロント</div>
+  </div>
+
+  <div class="example">
+    <h2>Update hash</h2>
+    <div
+      class="geolonia"
+      data-lat="35.681236"
+      data-lng="139.767125"
+      data-zoom="12"
+      data-hash="on"
+    ></div>
+  </div>
+
+  <div class="example">
+    <h2>Marker with Popup</h2>
+    <div
+      class="geolonia"
+      data-lat="35.681236"
+      data-lng="139.767125"
+      data-zoom="12"
+    ><h3>Hello World!</h3></div>
+  </div>
+
+  <div class="example">
+    <h2>Pitch and Bearing</h2>
+    <div
+      class="geolonia"
+      data-lat="35.681236"
+      data-lng="139.767125"
+      data-zoom="12"
+      data-pitch="60"
+      data-bearing="90"
+    ><h3>Hello World!</h3></div>
+  </div>
+
+  <div class="example">
+    <h2>Custom HTML Marker</h2>
+    <h3>HTML for the Custom Marker</h3>
+    <pre><code>&lt;div id=&quot;custom-marker&quot;&gt;&lt;img src=&quot;./icon.png&quot; alt=&quot;&quot;&gt;&lt;/div&gt;</code></pre>
+    <h3>CSS for the Custom Marker</h3>
+    <pre>#custom-marker
+{
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  display: none;
+}
+
+#custom-marker img
+{
+  max-width: 100%;
+  height: auto;
+}</pre>
+
+    <h3>HTML for the Map</h3>
+    <div
+      class="geolonia"
+      data-lat="35.681236"
+      data-lng="139.767125"
+      data-zoom="12"
+      data-custom-marker="#custom-marker"
+      data-custom-marker-offset="0, -25"
+    ><h3>Hello World!</h3></div>
+  </div>
+
+
+  <div id="custom-marker"><img src="./icon.png" alt=""></div>
+
+  <div class="example">
+    <h2>Custom with JavaScript</h2>
+    <div
+      id="my-map"
+      class="geolonia"
+      data-lat="35.681236"
+      data-lng="139.767125"
+      data-zoom="9"
+    ></div>
+    <pre>var map = new geolonia.Map(document.querySelector('#my-map'));
+setInterval(function() { myMap.rotateTo( myMap.getBearing() + 90 ) }, 5000);</pre>
+  </div>
+
+  <div class="example">
+    <h2>GeoJSON with SimpleStyle</h2>
+    <script id="example-geojson" type="application/json">
+      {
+        "type": "FeatureCollection",
+        "features": [
+          {
+            "type": "Feature",
+            "properties": {
+              "title": "集合場所",
+              "description": "ここが集合場所です。13時までに集合してください。",
+              "marker-color": "#0096ff",
+              "marker-size": "medium",
+              "marker-symbol": ""
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                139.75642561912537,
+                35.673569928415574
+              ]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "title": "売店",
+              "marker-color": "#ff9300",
+              "marker-size": "medium",
+              "marker-symbol": "bus"
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                139.75665628910062,
+                35.673190798997
+              ]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "title": "噴水",
+              "marker-color": "#ff2600",
+              "marker-size": "large",
+              "marker-symbol": ""
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                139.7567903995514,
+                35.67351763480974
+              ]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "title": "オレンジ色のポリゴン",
+              "description": "Hello World!!",
+              "stroke": "#935100",
+              "stroke-width": 2,
+              "stroke-opacity": 1,
+              "fill": "#ff9300",
+              "fill-opacity": 0.5
+            },
+            "geometry": {
+              "type": "Polygon",
+              "coordinates": [
+                [
+                  [
+                    139.75602865219116,
+                    35.674171302420035
+                  ],
+                  [
+                    139.75779354572296,
+                    35.6737660291323
+                  ],
+                  [
+                    139.75753605365753,
+                    35.67519537091245
+                  ],
+                  [
+                    139.75613057613373,
+                    35.67496005420893
+                  ],
+                  [
+                    139.75573360919952,
+                    35.67431075081735
+                  ],
+                  [
+                    139.75602865219116,
+                    35.674171302420035
+                  ]
+                ]
+              ]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "description": "Hello World!!",
+              "stroke": "#011892",
+              "stroke-width": 2,
+              "stroke-opacity": 1,
+              "fill": "#0096ff",
+              "fill-opacity": 0.5
+            },
+            "geometry": {
+              "type": "Polygon",
+              "coordinates": [
+                [
+                  [
+                    139.75559413433075,
+                    35.67527816736537
+                  ],
+                  [
+                    139.75699424743652,
+                    35.67527816736537
+                  ],
+                  [
+                    139.75699424743652,
+                    35.67568343297456
+                  ],
+                  [
+                    139.75559413433075,
+                    35.67568343297456
+                  ],
+                  [
+                    139.75559413433075,
+                    35.67527816736537
+                  ]
+                ]
+              ]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "title": "赤色の LineString です！",
+              "description": "This is <strong>LinesSring</strong>!!この文章はダミーです。<br>文字の大きさ、量、字間、行間等を確認するために入れています。",
+              "stroke": "#941100",
+              "stroke-width": 10,
+              "stroke-opacity": 1
+            },
+            "geometry": {
+              "type": "LineString",
+              "coordinates": [
+                [
+                  139.75503623485565,
+                  35.67479010282487
+                ],
+                [
+                  139.755819439888,
+                  35.67316029425285
+                ],
+                [
+                  139.75565314292908,
+                  35.6741974490131
+                ],
+                [
+                  139.75497722625732,
+                  35.67337818502668
+                ]
+              ]
+            }
+          }
+        ]
+      }
+    </script>
+    <div
+      class="geolonia"
+      data-geojson="#example-geojson"
+      data-marker="off"
+    ></div>
+  </div>
+
+  <div class="example">
+    <h2>GeoJSON (Ajax) with SimpleStyle</h2>
+    <div
+      class="geolonia"
+      data-lat="33.897"
+      data-lng="135.639"
+      data-zoom="10"
+      data-geojson="https://raw.githubusercontent.com/wakayama-pref-org/list-of-public-facilities/master/JSON/list-of-public-facilities.geojson"
+      data-marker="off"
+    ></div>
+  </div>
+
+  <div class="example">
+    <h2>Vector Tile with SimpleStyle</h2>
+    <div
+      class="geolonia"
+      data-lat="35.67436"
+      data-lng="139.75595"
+      data-zoom="15"
+      data-simple-vector="https://tileserver.geolonia.com/embed-simple-vector-sample/tiles.json?key=YOUR-API-KEY"
+      data-marker="off"
+    ></div>
+  </div>
+
+  <div class="example">
+    <h2>i18n</h2>
+    <div
+      class="geolonia"
+      data-lat="33.897"
+      data-lng="135.639"
+      data-zoom="8"
+      data-lang="en"
+    ></div>
+  </div>
+
+  <div class="example">
+    <h2>Enable 3D</h2>
+    <div
+      class="geolonia"
+      data-style="geolonia/gsi"
+      data-lat="35.68116"
+      data-lng="139.764992"
+      data-zoom="16"
+      data-3d="on"
+    ></div>
+  </div>
+
+  <div class="example">
+    <h2>Disable 3D</h2>
+    <div
+      class="geolonia"
+      data-style="geolonia/gsi"
+      data-lat="35.68116"
+      data-lng="139.764992"
+      data-zoom="16"
+      data-3d="off"
+    ></div>
+  </div>
+
+  <div class="example">
+    <h2>Stop lazy rendering</h2>
+    <div
+      class="geolonia"
+      data-lat="33.897"
+      data-lng="135.639"
+      data-zoom="8"
+      data-lazy-loading="off"
+    ></div>
+  </div>
+
+  <footer>
+    &copy; <a href="https://geolonia.com">geolonia.com</a>
+  </footer>
+
+  <script>
+    var examples = document.querySelectorAll('.example');
+    for (var i = 0; i < examples.length; i++) {
+      var example = examples[i];
+      var html = example.querySelector('.geolonia, #my-map').outerHTML;
+      var pre = document.createElement('pre');
+      pre.innerText = html.replace(/(<div.+?)(>)/g, "$1\n$2").replace(/ ([^ ]+=[^ ]+)/g, "\n  $1");
+      example.insertBefore(pre, example.querySelector('.geolonia'));
+    }
+  </script>
+
+  <a class="forkme" href="https://github.com/geolonia/embed"><img width="149" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_right_darkblue_121621.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
+
+  <script src="./embed.js?geolonia-api-key=YOUR-API-KEY"></script>
+  <script>
+    var myMap = new geolonia.Map(document.querySelector('#my-map'));
+    setInterval(function() { myMap.rotateTo( myMap.getBearing() + 90 ) }, 5000);
+  </script>
+</body>
+
+</html>
